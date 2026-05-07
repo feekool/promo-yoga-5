@@ -800,6 +800,25 @@
                 border: 2px solid currentColor;
             }
         }
+
+        .navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.logo-area a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+.nav-buttons {
+  display: flex;
+  gap: 12px;
+}
     </style>
 </head>
 
@@ -808,18 +827,29 @@
     <a href="#main-content" class="skip-link">Перейти к основному содержимому</a>
     
     <!-- Navigation -->
-    <header class="navbar" role="navigation" aria-label="Основная навигация">
-        <div class="logo-area">
-            <a href="https://feekool.github.io/" class="logo-area" style="display:flex;align-items:center;justify-align:center;gap:12px;text-decoration:none">
-                <div class="cat-icon" aria-hidden="true">🧘</div>
-                <h1 class="site-title">Feekool Yoga</h1>
-            </a>
-        </div>
-        <nav class="nav-buttons" aria-label="Дополнительные действия">
-            <a href="https://feekool.github.io/" class="btn" aria-label="Посмотреть демо-версию">🇷🇺 Демо</a>
-            <a href="https://feekool.github.io/" class="btn" aria-label="Написать нам">✉️ Связаться</a>
-        </nav>
-    </header>
+<header class="navbar" role="navigation" aria-label="Основная навигация" 
+        style="display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1200px;margin:0 auto;">
+    
+    <!-- Логотип -->
+    <div class="logo-area">
+        <a href="https://feekool.github.io/" 
+           style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+            <div class="cat-icon" aria-hidden="true">🧘</div>
+            <h1 class="site-title" style="margin:0;font-size:1.25rem;">Feekool Yoga</h1>
+        </a>
+    </div>
+    
+    <!-- Кнопки навигации -->
+    <nav class="nav-buttons" aria-label="Дополнительные действия" 
+         style="display:flex;gap:12px;">
+        <a href="https://feekool.github.io/" class="btn" 
+           style="padding:8px 16px;border-radius:6px;text-decoration:none;" 
+           aria-label="Посмотреть демо-версию">🇷🇺 Демо</a>
+        <a href="https://feekool.github.io/" class="btn" 
+           style="padding:8px 16px;border-radius:6px;text-decoration:none;" 
+           aria-label="Написать нам">✉️ Связаться</a>
+    </nav>
+</header>
     
     <main id="main-content">
         <!-- Hero Section -->
