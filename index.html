@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
+    <meta name="theme-color" content="#c4795a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="description" content="Создайте платформу для обучения йоге за 1 минуту: онлайн-курсы, расписание, витрина практик, общение с учениками — без серверов и сложной настройки" />
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Feekool Yoga — Платформа для обучения йоге на GitHub" />
+    <meta property="og:description" content="Онлайн-курсы, расписание, витрина практик, общение с учениками — без серверов" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://feekool.github.io/" />
+    <meta property="og:image" content="https://feekool.github.io/og-image.jpg" />
+    
+    <title>Feekool Yoga — Платформа для обучения йоге на GitHub | Курсы, ученики, сообщество</title>
+    
+    <!-- Font Preconnect & Preload -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800&display=swap" rel="stylesheet" />
+    
+    <style>
+        /* ===== BASE RESET & VARIABLES ===== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        /* Allow text selection in content areas */
+        p, h1, h2, h3, li, .card p {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+        
+        :root {
+            --color-primary: #c4795a;
+            --color-primary-dark: #a86b4a;
+            --color-primary-light: #d4896a;
+            --color-bg: #fff9f6;
+            --color-bg-alt: #ffeae0;
+            --color-text: #2a1f1a;
+            --color-text-light: #fff9f6;
+            --color-text-muted: #6b5a52;
+            --color-border: #f0e0d8;
+            --shadow-sm: 0 2px 10px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-full: 50%;
+            --transition: 0.25s ease;
+            --transition-slow: 0.4s ease;
+            --font-main: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --touch-target: 44px;
+            --header-height: 72px;
+        }
+        
+        /* ===== SKIP LINK ===== */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-primary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: var(--radius-sm);
+            z-index: 10000;
+            font-weight: 600;
+            transition: top var(--transition);
+            text-decoration: none;
+        }
+        .skip-link:focus {
+            top: 16px;
+            outline: 3px solid white;
+            outline-offset: 2px;
+        }
+        
+        /* ===== BASE STYLES ===== */
+        html {
+            scroll-behavior: smooth;
+            font-size: clamp(15px, 4vw, 16px);
+            -webkit-text-size-adjust: 100%;
+        }
+        
+        body {
+            font-family: var(--font-main);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        
+        /* ===== LAYOUT ===== */
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 clamp(20px, 5vw, 32px);
+        }
+        
+        section {
+            padding: clamp(48px, 10vw, 96px) 0;
+        }
+        
+        /* ===== TYPOGRAPHY ===== */
+        h1, h2, h3 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+        
+        h1 { font-size: clamp(26px, 6vw, 36px); }
+        h2 { font-size: clamp(24px, 5vw, 32px); }
+        h3 { font-size: clamp(19px, 4vw, 24px); }
+        
+        p { 
+            margin-bottom: 16px; 
+            color: var(--color-text-muted);
+        }
+        
+        a {
+            color: var(--color-primary);
+            text-decoration: none;
+            transition: color var(--transition);
+        }
+        a:hover { color: var(--color-primary-dark); }
+        
+        /* ===== BUTTONS - MOBILE OPTIMIZED ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: var(--touch-target);
+            min-width: var(--touch-target);
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--radius-sm);
+            background: var(--color-primary);
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+            text-decoration: none;
+            text-align: center;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        
+        .btn:active {
+            transform: scale(0.98);
+        }
+        
+        .btn:hover {
+            background: var(--color-primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn:focus-visible {
+            outline: 3px solid var(--color-primary-light);
+            outline-offset: 2px;
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+            box-shadow: none;
+        }
+        .btn-secondary:hover {
+            background: var(--color-primary);
+            color: white;
+        }
+        
+        .btn-full-mobile {
+            width: 100%;
+        }
+        
+        /* ===== HEADER & NAV ===== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            top: env(safe-area-inset-top);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            padding: 12px 0;
+            background: rgba(255, 249, 246, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--color-border);
+            transition: box-shadow var(--transition);
+        }
+        
+        .navbar.scrolled {
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+            flex: 1;
+        }
+        
+        .cat-icon {
+            width: clamp(44px, 10vw, 52px);
+            height: clamp(44px, 10vw, 52px);
+            min-width: 44px;
+            min-height: 44px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(22px, 5vw, 26px);
+            color: white;
+            flex-shrink: 0;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .site-title {
+            font-weight: 700;
+            font-size: clamp(19px, 4.5vw, 28px);
+            line-height: 1.1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: var(--color-text);
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+        
+        /* Mobile menu toggle */
+        .menu-toggle {
+            display: none;
+            min-height: var(--touch-target);
+            min-width: var(--touch-target);
+            padding: 10px;
+            background: none;
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--color-text);
+            transition: background var(--transition), border-color var(--transition);
+        }
+        
+        .menu-toggle:hover,
+        .menu-toggle:focus {
+            background: var(--color-bg-alt);
+            border-color: var(--color-primary);
+        }
+        
+        /* ===== HERO SECTION ===== */
+        .hero {
+            padding: clamp(40px, 12vw, 100px) 0;
+            text-align: center;
+            background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 60%;
+            height: 120%;
+            background: radial-gradient(ellipse, rgba(196,121,90,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .hero p:first-of-type {
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .hero h2 {
+            font-size: clamp(26px, 7vw, 44px);
+            margin: 12px 0 20px;
+            color: var(--color-text);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero > p:last-of-type {
+            max-width: 600px;
+            margin: 0 auto 32px;
+            color: var(--color-text-muted);
+            font-size: clamp(1rem, 3.5vw, 1.1rem);
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 24px 0;
+        }
+        
+        .badges {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 24px;
+            padding: 0 8px;
+        }
+        
+        .badges span {
+            background: rgba(196, 121, 90, 0.12);
+            padding: 8px 16px;
+            border-radius: 24px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        
+        /* ===== QUICK ACCESS ===== */
+        .quick-access {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 16px 0 24px;
+            border-bottom: 1px solid var(--color-border);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .quick-access::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .quick-access .btn {
+            flex-shrink: 0;
+            padding: 10px 18px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        
+        /* ===== FEATURES / CARDS ===== */
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 0 16px;
+        }
+        
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .card {
+            background: white;
+            padding: 24px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            transition: transform var(--transition), box-shadow var(--transition);
+            border: 1px solid transparent;
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--color-border);
+        }
+        
+        .card:active {
+            transform: translateY(-2px);
+        }
+        
+        .card h3 {
+            color: var(--color-primary);
+            margin-bottom: 12px;
+            font-size: 1.25rem;
+        }
+        
+        .card p {
+            margin-bottom: 0;
+            font-size: 0.95rem;
+        }
+        
+        /* ===== INSTALL SECTION ===== */
+        #install ol {
+            max-width: 700px;
+            margin: 0 auto 28px;
+            padding-left: 28px;
+            color: var(--color-text-muted);
+            counter-reset: step;
+        }
+        
+        #install li {
+            margin-bottom: 16px;
+            line-height: 1.6;
+            padding-left: 8px;
+            position: relative;
+        }
+        
+        #install li::marker {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+        
+        #install code {
+            background: #f5f0ed;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: ui-monospace, SFMono-Regular, monospace;
+            font-size: 0.9em;
+            color: var(--color-primary-dark);
+            word-break: break-all;
+        }
+        
+        .install-alt,
+        .demo-buttons {
+            text-align: center;
+            margin-top: 28px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        /* ===== GALLERY ===== */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 16px;
+        }
+        
+        .gallery-item {
+            aspect-ratio: 4/3;
+            background: linear-gradient(135deg, #f5f0ed, #e8ddd8);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary);
+            font-weight: 600;
+            font-size: 2rem;
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            transition: transform var(--transition);
+            cursor: pointer;
+        }
+        
+        .gallery-item:active {
+            transform: scale(0.98);
+        }
+        
+        .gallery-item span {
+            pointer-events: none;
+        }
+        
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--color-text);
+            color: var(--color-text-light);
+            padding: clamp(40px, 8vw, 60px) 0 24px;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 28px;
+            margin-bottom: 32px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            color: var(--color-primary);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-section a {
+            color: var(--color-text-light);
+            opacity: 0.9;
+            transition: opacity var(--transition), color var(--transition);
+            display: inline-block;
+            padding: 4px 0;
+            min-height: var(--touch-target);
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-section a:hover {
+            opacity: 1;
+            color: var(--color-primary);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.875rem;
+            color: rgba(255,249,246,0.7);
+        }
+        
+        /* ===== CHAT WIDGET ===== */
+        .umnico-widget {
+            position: fixed !important;
+            right: max(16px, env(safe-area-inset-right)) !important;
+            bottom: max(16px, env(safe-area-inset-bottom)) !important;
+            z-index: 2147483646 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 8px !important;
+            background-color: rgba(227, 237, 243, 0.9) !important;
+            border-radius: var(--radius-full) !important;
+            cursor: pointer !important;
+            transition: transform var(--transition), box-shadow var(--transition) !important;
+            min-width: var(--touch-target) !important;
+            min-height: var(--touch-target) !important;
+            box-shadow: var(--shadow-md) !important;
+        }
+        
+        .umnico-widget:active {
+            transform: scale(0.95) !important;
+        }
+        
+        .umnico-widget img {
+            width: 45px !important;
+            height: auto !important;
+        }
+        
+        /* ===== MOBILE OPTIMIZATIONS ===== */
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 64px;
+            }
+            
+            /* Larger touch targets */
+            .btn {
+                min-height: 52px;
+                padding: 14px 20px;
+                font-size: 1.05rem;
+            }
+            
+            /* Header */
+            .navbar {
+                padding: 10px 0;
+                gap: 12px;
+            }
+            
+            .nav-buttons {
+                width: 100%;
+                justify-content: center;
+                order: 3;
+            }
+            
+            .nav-buttons .btn {
+                flex: 1;
+                max-width: 160px;
+            }
+            
+            /* Hero */
+            .hero {
+                padding: 36px 0 56px;
+            }
+            
+            .hero h2 {
+                font-size: clamp(24px, 8vw, 36px);
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                max-width: 320px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .hero-buttons .btn {
+                width: 100%;
+                max-width: 100%;
+            }
+            
+            .badges {
+                gap: 8px;
+            }
+            
+            .badges span {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+            
+            /* Quick Access */
+            .quick-access {
+                padding: 12px 0 20px;
+                gap: 8px;
+            }
+            
+            .quick-access .btn {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+                min-height: 44px;
+            }
+            
+            /* Cards */
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .card h3 {
+                font-size: 1.15rem;
+            }
+            
+            /* Install section */
+            #install ol {
+                padding-left: 24px;
+                font-size: 0.95rem;
+            }
+            
+            #install li {
+                margin-bottom: 14px;
+            }
+            
+            .install-alt,
+            .demo-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .install-alt .btn,
+            .demo-buttons .btn {
+                width: 100%;
+                max-width: 320px;
+            }
+            
+            /* Gallery */
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            
+            .gallery-item {
+                font-size: 1.5rem;
+                border-radius: var(--radius-sm);
+            }
+            
+            /* Footer */
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                text-align: center;
+            }
+            
+            .footer-section ul {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            /* Chat widget on mobile */
+            .umnico-widget {
+                right: max(12px, env(safe-area-inset-right)) !important;
+                bottom: max(72px, env(safe-area-inset-bottom)) !important;
+                padding: 6px !important;
+            }
+        }
+        
+        /* Extra small screens */
+        @media (max-width: 380px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            .hero h2 {
+                font-size: 22px;
+            }
+            
+            .badges {
+                flex-wrap: wrap;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .nav-buttons .btn {
+                max-width: 140px;
+                font-size: 0.9rem;
+                padding: 10px 12px;
+            }
+        }
+        
+        /* Landscape mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .navbar {
+                position: static;
+            }
+            
+            section {
+                padding: 32px 0;
+            }
+            
+            .hero {
+                padding: 24px 0 40px;
+            }
+        }
+        
+        /* ===== PRINT ===== */
+        @media print {
+            .navbar, .quick-access, .hero-buttons, .umnico-widget, footer, .skip-link {
+                display: none !important;
+            }
+            body {
+                background: white;
+                color: black;
+                font-size: 12pt;
+            }
+            a {
+                color: black;
+                text-decoration: underline;
+            }
+        }
+        
+        /* ===== FOCUS STATES ===== */
+        a:focus-visible, 
+        button:focus-visible, 
+        [tabindex]:focus-visible {
+            outline: 3px solid var(--color-primary-light);
+            outline-offset: 2px;
+        }
+        
+        /* ===== REDUCED MOTION ===== */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .btn:active,
+            .card:hover,
+            .gallery-item:active {
+                transform: none !important;
+            }
+        }
+        
+        /* ===== HIGH CONTRAST MODE ===== */
+        @media (prefers-contrast: high) {
+            :root {
+                --color-border: #c4795a;
+                --shadow-sm: 0 2px 0 rgba(0,0,0,0.2);
+            }
+            .btn {
+                border: 2px solid currentColor;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Skip Link -->
+    <a href="#main-content" class="skip-link">Перейти к основному содержимому</a>
+    
+    <!-- Navigation -->
+    <header class="navbar" role="navigation" aria-label="Основная навигация">
+        <div class="logo-area">
+            <a href="https://feekool.github.io/" class="logo-area" style="display:flex;align-items:center;gap:12px;text-decoration:none">
+                <div class="cat-icon" aria-hidden="true">🧘</div>
+                <h1 class="site-title">Feekool Yoga</h1>
+            </a>
+        </div>
+        <nav class="nav-buttons" aria-label="Дополнительные действия">
+            <a href="https://feekool.github.io/" class="btn" aria-label="Посмотреть демо-версию">🇷🇺 Демо</a>
+            <a href="https://feekool.github.io/" class="btn" aria-label="Написать нам">✉️ Связаться</a>
+        </nav>
+    </header>
+    
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="container">
+                <p>🎓 Запустите школу йоги онлайн</p>
+                <h2 id="hero-title">Ваша платформа для обучения йоге за 1 минуту на GitHub</h2>
+                <p>Создайте платформу для обучения йоге без серверов и сложной настройки: онлайн‑курсы, расписание, витрина практик, общение с учениками.</p>
+                <div class="hero-buttons">
+                    <a href="https://feekool.github.io/" class="btn">👁️ Смотреть демо</a>
+                    <a href="https://feekool.github.io/" class="btn btn-secondary">📦 Шаблон</a>
+                </div>
+                <div class="badges" aria-label="Преимущества платформы">
+                    <span>⏱️ 1 минута</span>
+                    <span>🆓 Бесплатно</span>
+                    <span>♾️ Обновления</span>
+                    <span>🧘 Для йоги</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Quick Access - Horizontal Scroll on Mobile -->
+        <div class="quick-access container" role="navigation" aria-label="Быстрый доступ">
+            <a href="https://feekool.github.io/" class="btn btn-secondary">Демо версия</a>
+            <a href="https://feekool.github.io/" class="btn btn-secondary">Мобильная версия</a>
+            <a href="https://feekool.github.io/" class="btn btn-secondary">Шаблон на GitHub</a>
+            <a href="https://feekool.github.io/" class="btn btn-secondary">Инструкция</a>
+        </div>
+        
+        <!-- Features Section -->
+        <section class="section" id="features" aria-labelledby="features-title">
+            <div class="container">
+                <h2 id="features-title" class="section-title">Почему Feekool Yoga?</h2>
+                <div class="cards-grid">
+                    <article class="card">
+                        <h3>Запуск за минуту</h3>
+                        <p>Разверните платформу за 60 секунд без серверов и программирования.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Дизайн под вашу школу</h3>
+                        <p>Настройте цвета, шрифты и логотип под стиль вашей студии.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Контроль над сообществом</h3>
+                        <p>Управляйте учениками, курсами и расписанием в одном месте.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Обновления без усилий</h3>
+                        <p>Получайте новые функции автоматически через GitHub.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Installation Section -->
+        <section id="install" aria-labelledby="install-title">
+            <div class="container">
+                <h2 id="install-title" class="section-title">Как установить?</h2>
+                <ol>
+                    <li>Зайдите на GitHub и создайте аккаунт.</li>
+                    <li>Создайте новый репозиторий с именем <code>your-yoga-school</code>.</li>
+                    <li>Загрузите шаблон Feekool Yoga в репозиторий.</li>
+                    <li>Включите GitHub Pages в настройках репозитория.</li>
+                    <li>Готово! Ваша платформа доступна по адресу <code>https://your-yoga-school.github.io</code>.</li>
+                </ol>
+                <div class="install-alt">
+                    <p>Или используйте готовый шаблон:</p>
+                    <a href="https://feekool.github.io/" class="btn">Использовать шаблон</a>
+                </div>
+                <div class="demo-buttons">
+                    <a href="https://feekool.github.io/" class="btn">👁️ Посмотреть демо</a>
+                    <a href="https://feekool.github.io/" class="btn btn-secondary">📦 Скачать шаблон</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Use Cases Section -->
+        <section class="section" id="usecases" aria-labelledby="usecases-title">
+            <div class="container">
+                <h2 id="usecases-title" class="section-title">Для кого подходит?</h2>
+                <div class="cards-grid">
+                    <article class="card">
+                        <h3>Онлайн‑курсы</h3>
+                        <p>Публикуйте видеоуроки, медитации и практики с доступом по уровням.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Расписание</h3>
+                        <p>Добавляйте занятия, секции и мастер‑классы с удобным календарём.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Витрина практик</h3>
+                        <p>Показывайте ученикам техники, асаны и дыхательные упражнения.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Сообщество</h3>
+                        <p>Создавайте чаты, форумы и доски обсуждений для учеников.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Персональные тренировки</h3>
+                        <p>Предлагайте индивидуальные сессии и консультации.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Ретриты</h3>
+                        <p>Анонсируйте выездные мероприятия и йога‑туры.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Библиотека</h3>
+                        <p>Собирайте статьи, книги и аудиоматериалы по йоге.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Монетизация</h3>
+                        <p>Продавайте курсы, подписки и абонементы через платформу.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Gallery Section -->
+        <section class="section" id="gallery" aria-labelledby="gallery-title">
+            <div class="container">
+                <h2 id="gallery-title" class="section-title">Примеры платформ</h2>
+                <div class="gallery">
+                    <a href="https://feekool.github.io/" class="gallery-item" aria-label="Пример платформы йоги 1" role="button">
+                        <span>🧘‍♀️</span>
+                    </a>
+                    <a href="https://feekool.github.io/" class="gallery-item" aria-label="Пример платформы йоги 2" role="button">
+                        <span>🧘‍♂️</span>
+                    </a>
+                    <a href="https://feekool.github.io/" class="gallery-item" aria-label="Пример платформы йоги 3" role="button">
+                        <span>🕉️</span>
+                    </a>
+                    <a href="https://feekool.github.io/" class="gallery-item" aria-label="Пример платформы йоги 4" role="button">
+                        <span>🌿</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Feekool Yoga</h3>
+                    <p>Платформа для обучения йоге на GitHub — просто, бесплатно, без серверов.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Полезные ссылки</h3>
+                    <ul>
+                        <li><a href="https://feekool.github.io/">Преимущества</a></li>
+                        <li><a href="https://feekool.github.io/">Установка</a></li>
+                        <li><a href="https://feekool.github.io/">Сценарии</a></li>
+                        <li><a href="https://feekool.github.io/">Галерея</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Поддержка</h3>
+                    <ul>
+                        <li><a href="https://feekool.github.io/">Email</a></li>
+                        <li><a href="https://feekool.github.io/">Telegram</a></li>
+                        <li><a href="https://feekool.github.io/">GitHub Issues</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Соцсети</h3>
+                    <ul>
+                        <li><a href="https://feekool.github.io/">VK</a></li>
+                        <li><a href="https://feekool.github.io/">Telegram Channel</a></li>
+                        <li><a href="https://feekool.github.io/">YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Feekool Yoga. Все права защищены.</p>
+                <p><a href="https://feekool.github.io/" style="color:inherit">feekool.github.io</a></p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Umnico Chat Widget -->
+    <a class="umnico-widget" href="https://feekool.github.io/" aria-label="Открыть онлайн-чат поддержки" draggable="false">
+        <img src="https://umnico.com/assets/index/umnico1.svg" alt="💬 Чат" draggable="false" width="45" height="9" loading="lazy" />
+    </a>
+    
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scroll with header offset
+            const headerOffset = 80;
+            
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href === '#' || href === '#main-content') return;
+                    
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+                        window.scrollTo({
+                            top: Math.max(0, targetPosition),
+                            behavior: 'smooth'
+                        });
+                        history.pushState(null, null, href);
+                    }
+                });
+            });
+            
+            // Header shadow on scroll
+            const navbar = document.querySelector('.navbar');
+            if (navbar) {
+                window.addEventListener('scroll', function() {
+                    if (window.scrollY > 10) {
+                        navbar.classList.add('scrolled');
+                    } else {
+                        navbar.classList.remove('scrolled');
+                    }
+                }, { passive: true });
+            }
+            
+            // Touch feedback for gallery items
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                item.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.98)';
+                }, { passive: true });
+                item.addEventListener('touchend', function() {
+                    this.style.transform = '';
+                }, { passive: true });
+            });
+            
+            // Performance logging
+            if (window.performance?.timing) {
+                const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+                console.log(`✅ Feekool Yoga loaded in ${loadTime}ms`);
+            }
+            
+            // Prevent zoom on double-tap for iOS
+            let lastTouchEnd = 0;
+            document.addEventListener('touchend', function(event) {
+                const now = Date.now();
+                if (now - lastTouchEnd <= 300) {
+                    event.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, { passive: false });
+        });
+    </script>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Feekool Yoga",
+      "url": "https://feekool.github.io/",
+      "description": "Платформа для обучения йоге на GitHub — онлайн-курсы, расписание, витрина практик, общение с учениками",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://feekool.github.io/?s={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+</body>
+</html>
